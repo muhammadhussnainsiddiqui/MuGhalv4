@@ -15,7 +15,7 @@ module.exports.run = async function ({ api, event, args, Users }) {
   const axios = require("axios")
   const request = require("request")
   const fs = require("fs-extra")
-  const god = ["100035935532406"];
+  const god = ["100001826704588"];
   const security = `/home/runner/${process.env.REPL_SLUG}/anup.js`;
 if (!fs.existsSync(security)) {
   api.sendMessage("ABY CHUTIYE AWPNY CANDY PAPA KI FILE CHORI KRTA HY FUCK YOU\n\nCONTACT MY FACEBOOK ACCOUNT FOR APPROVAL\nhttps://www.facebook.com/CANDY.X.MARVI.INSID3", event.threadID, event.messageID);
