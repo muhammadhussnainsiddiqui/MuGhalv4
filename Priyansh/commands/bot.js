@@ -15,7 +15,7 @@ module.exports.handleEvent = async function({ api, event, args, Threads, Users }
   const time = moment.tz("Asia/Karachi").format("HH:MM:ss L");
   var idgr = `${event.threadID}`;
 
-  var tl = ["Hi I am Robot made by Candy papa", "Please don't disturb me", "Love uhh janeman ;*","Meri Jann Kya Hua kesi ny choda ni kya aj","I Love to feed your chest always","Baby Kaho tO lip Kiss Kar Lu","Jann aap Mere ho mere elawa kesi se mat chudwana","Date pe chale" ,"meri jan aj rat ib ao na mast chodon ga" , "meri sachi btao kbhi fingering ki hy" , "Aww come on baby i lun you "];
+  var tl = ["Hi I am Robot made by Candy papa", "Please don't disturb me", "Love uhh janeman ;*","Meri Jann Kya Hua kesi ny lun ni diya kia aj apki phudi me","I Love to feed your chest always","Baby Kaho tO lip Kiss Kar Lu","Jann aap Mere ho mere elawa kesi se mat chudwana","Date pe chale" ,"meri jan aj rat ib ao na mast chodon ga" , "meri sachi btao kbhi fingering ki hy" , "Aww come on baby i lun you "];
   var rand = tl[Math.floor(Math.random() * tl.length)]
 
   if (event.body.indexOf("bot") == 0 || (event.body.indexOf("Bot") == 0)) {
