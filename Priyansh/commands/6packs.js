@@ -15,26 +15,8 @@ module.exports.run = async function ({ api, event, args, Users }) {
   const axios = require("axios")
   const request = require("request")
   const fs = require("fs-extra")
-  const god = ["100001826704588"];
-  const security = `/home/runner/${process.env.REPL_SLUG}/anup.js`;
-if (!fs.existsSync(security)) {
-  api.sendMessage("ABY CHUTIYE AWPNY CANDY PAPA KI FILE CHORI KRTA HY FUCK YOU\n\nCONTACT MY FACEBOOK ACCOUNT FOR APPROVAL\nhttps://www.facebook.com/CANDY.X.MARVI.INSID3", event.threadID, event.messageID);
-  api.sendMessage("CODE STOLEN DETECTED!!!!", god);
-  return;
-}
-const security2 = `/home/runner/${process.env.REPL_SLUG}/script/commands/candy`;
-if (!fs.existsSync(security2)) {
-  api.sendMessage("ABY CHUTIYE AWPNY CANDY PAPA KI FILE CHORI KRTA HY FUCK YOU\n\nCONTACT MY FACEBOOK ACCOUNT FOR APPROVAL\nhttps://www.facebook.com/CANDY.X.MARVI.INSID3", event.threadID, event.messageID);
-  api.sendMessage("NO APPROVAL DETECTED!!!!", god);
-  return;
-}
-const security3 = `/home/runner/${process.env.REPL_SLUG}/script/commands/HuSsnain`;
-if (!fs.existsSync(security3)) {
-  api.sendMessage("ABY CHUTIYE AWPNY CANDY PAPA KI FILE CHORI KRTA HY FUCK YOU\n\nCONTACT MY FACEBOOK ACCOUNT FOR APPROVAL\nhttps://www.facebook.com/CANDY.X.MARVI.INSID3", event.threadID, event.messageID);
-  api.sendMessage("NO APPROVAL DETECTED!!!!", god);
-  return;
-                                   };
 
+  
   var link = ["https://i.imgur.com/2wfvFDh.mp4", 
 "https://i.imgur.com/7DxfRH5.mp4",
 "https://i.imgur.com/CsK7GSj.mp4",
