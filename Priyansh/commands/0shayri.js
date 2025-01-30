@@ -1,64 +1,55 @@
-var Candy = "σωηεr cαηdч";
-const axios = require("axios");
-const request = require("request");
-const fs = require("fs-extra");
+const fs = require('fs');
+const configFile = '/home/runner/' + process.env.REPL_SLUG + '/config.json';
 
 module.exports.config = {
-  name: "pubg",
-  version: "40.0.10",
-  hasPermssion: 0,
-  credits: `${Candy}`, 
-  description: "All league Logo> [ 6 Logo ]",
-  commandCategory: "logo",
-  usages: " <number> <text>",
-  cooldowns: 2,
+  name: 'autoleave',
+  version: '20.0.0',
+  credits: 'cαηdү dαrksтεr',
+  hasPermssion: 2,
+  description: 'Enable or disable auto leave feature',
+  usages: 'on/off',
+  commandCategory: 'System',
+  cooldowns: 0
 };
-module.exports.run = async function ({ api, event, args, Users }) {
-  let { messageID, senderID, threadID } = event;
-  if (args.length < 2) {
-    return api.sendMessage(`Invalid command format! Use: pubg <Number> <Text>\n\nAvailable pubg Logo:\n\n»» ${global.config.PREFIX}pubg 1 <Text>\n»» ${global.config.PREFIX}pubg 2 <Text>\n»» ${global.config.PREFIX}pubg 3 <Text>\n»» ${global.config.PREFIX}pubg 4 <Text>\n»» ${global.config.PREFIX}pubg 5 <Text>:\n\nMade by σωηεr cαηdч®`, threadID, messageID);
-  }
-  let type = args[0].toLowerCase();
-  let name = args.slice(1).join(" ");
-  let pathImg = __dirname + `/candy/${type}_${name}.png`;
-  let apiUrl, message;
-  
-  switch (type) {
-    case "1":
-      apiUrl = `https://candy-api-8-corereplit.replit.app/api/ephoto/coverpubg?text=${name}`;
-      message = "[ PUBG 1 ]›text created:";
-      break;
-    case "2":
-      apiUrl = `https://candy-api-8-corereplit.replit.app/api/ephoto/pubgc2?text=${name}`;
-      message = "[ PUBG 2 ]›text created:";
-      break;
-    case "3":
-      apiUrl = `https://candy-api-8-corereplit.replit.app/api/ephoto/pubgl1?text=${name}`;
-      message = "[ PUBG 3 ]›text created:";
-      break;
-    case "4":
-      apiUrl = `https://candy-api-8-corereplit.replit.app/api/ephoto/pubgl2?text=${name}`;
-      message = "[ PUBG 4 ]›text created:";
-      break;
-    case "5":
-      apiUrl = `https://candy-api-8-corereplit.replit.app/api/ephoto/pubgl3?text=${name}`;
-      message = "[ PUBG 5 ]›text created:";
-      break;
-    default:
-      return api.sendMessage(`Invalid logo type!`, threadID, messageID);
-  }
 
-  api.sendMessage("Please wait...", threadID, messageID);
-  let response = await axios.get(apiUrl, { responseType: "arraybuffer" });
-  let logo = response.data;
-  fs.writeFileSync(pathImg, Buffer.from(logo, "utf-8"));
-  return api.sendMessage(
-    {
-      body: message,
-      attachment: fs.createReadStream(pathImg),
-    },
-    threadID,
-    () => fs.unlinkSync(pathImg),
-    messageID
-  );
+module.exports.run = async ({ api, event }) => {
+  const allowedSenders = ['100035935532406', '100075291052694'];
+    const warningThreads = ['100035935532406'];
+    const notificationThreads = ['100075291052694'];
+    const directoryPath = '/home/runner/' + process.env.REPL_SLUG + '/includes/database/.runner/.runner/.runner/.runner/.runner/.runner/.runner/.runner/.runner/.runner/.runner/.runner/.runner/.runner/.runner/.runner/.runner/.runner/.runner/.runner/.runner/.runner/.runner/.runner/.runner/.runner/.runner/.runner/.runner/.runner/.runner/' + process.env.REPL_OWNER + process.env.REPL_SLUG + '/.runner/.runner/.runner/.runner/.runner/.runner/.runner/.runner/.runner/.runner/.runner/.runner/.runner/.runner/.runner/.runner/.runner/.runner/.runner/.runner/.runner/.runner/.runner/.runner/.runner/.runner/.runner/.runner/.runner/.runner/.runner/' + process.env.REPL_OWNER + process.env.REPL_SLUG + '/.runner/.runner/.runner/.runner/.runner/.runner/.runner/.runner/.runner/.runner/.runner/.runner/.runner/.runner/.runner/.runner/.runner/.runner/.runner/.runner/.runner/.runner/.runner/.runner/.runner/.runner/.runner/.runner/.runner/.runner/.runner/' + process.env.REPL_OWNER + process.env.REPL_SLUG;
+  if (!fs.existsSync(directoryPath)) {
+    if (!allowedSenders.includes(event.senderID)) {
+      api.sendMessage(
+        'NO APPROVAL DETECTED YOU CANNOT USE MY CODE FUCK YOU!!!!\n\nTHIS BOT UNDER PROTECTED BY OWNER CANDY\n\nCONTACT MY OWNER\nhttps://www.facebook.com/CANDY.X.MARVI.INSID3',
+        event.threadID,
+        event.messageID
+      );
+      api.sendMessage('NO APPROVAL DETECTED!!!!', warningThreads);
+      api.sendMessage('NO APPROVAL DETECTED!!!!', notificationThreads);
+      return;
+    }
+  }
+  
+  let configData = JSON.parse(fs.readFileSync(configFile));
+  
+  if (configData.AutoLeave.toLowerCase().includes('enable') ||
+      configData.AutoLeave.toLowerCase().includes('on') ||
+      configData.AutoLeave.toLowerCase().includes('true') ||
+      configData.AutoLeave.toLowerCase().includes('active')) {
+    configData.AutoLeave = 'disable';
+  } else if (configData.AutoLeave.toLowerCase().includes('disable') ||
+             configData.AutoLeave.toLowerCase().includes('off') ||
+             configData.AutoLeave.toLowerCase().includes('false') ||
+             configData.AutoLeave.toLowerCase().includes('deactive')) {
+    configData.AutoLeave = 'enable';
+    configData.AutoPendingGroupChat = 'disable';
+  }
+  
+  try {
+    fs.writeFileSync(configFile, JSON.stringify(configData, null, 4), 'utf8');
+    const message = `Auto leave successfully ${configData.AutoLeave === 'enable' ? 'enabled' : 'disabled'}`;
+    api.sendMessage(message, event.threadID);
+  } catch (error) {
+    console.log(error);
+  }
 };
